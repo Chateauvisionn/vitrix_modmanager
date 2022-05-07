@@ -1,18 +1,28 @@
-import os.path
-import os
-import shutil
-import zipfile
+import os.path, os, shutil, zipfile
 
 if not os.path.isdir("mods"):
     os.mkdir("mods")
 
+def create_gamepath():
+    if not os.path.isfile("gamepath.txt"):
+        print("No gamepath.txt found. Please enter the path to your game folder:")
+        gamepath = input()
+        with open("gamepath.txt", "w") as f:
+            f.write(gamepath)
+            f.close()
+
+# detect if game path is valid
+if os.path.isfile("gamepath.txt"):
+    with open("gamepath.txt", "r") as f:
+        gamepath = f.read()
+        if not os.path.isdir(gamepath):
+            os.remove("gamepath.txt")
+            create_gamepath()
+            f.close()
+        
+
 print(f"Installed mods: {[i for i in os.listdir('mods')]}")
 
-if not os.path.isfile("gamepath.txt"):
-    print("No gamepath.txt found. Please enter the path to your game folder:")
-    gamepath = input()
-    with open("gamepath.txt", "w") as f:
-        f.write(gamepath)
 
 gamepath = open("gamepath.txt", "r").read()
 
