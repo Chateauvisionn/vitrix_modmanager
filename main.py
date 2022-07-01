@@ -1,4 +1,4 @@
-import os.path, os, shutil, zipfile
+import os, shutil, zipfile
 
 if not os.path.isdir("mods"):
     os.mkdir("mods")
